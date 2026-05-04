@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Learn Punjabi">
+<title>Learn Punjabi · ਪੰਜਾਬੀ</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="icon" type="image/png" sizes="180x180" href="icon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAF6EE;
+  --ink: #1F1B16;
+  --ink-soft: #44403C;
+  --muted: #78716C;
+  --muted-2: #A8A29E;
+  --border: #E7E5E0;
+  --border-2: #D6D3CE;
+  --card: #FFFFFF;
+  --accent: #B8612D;
+  --accent-soft: #E8B776;
+  --good: #047857;
+  --good-bg: #ECFDF5;
+  --bad: #B91C1C;
+  --bad-bg: #FEF2F2;
+  --bad-border: #F87171;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body {
+  background-image:
+    radial-gradient(at 12% 8%, rgba(184, 97, 45, 0.06) 0px, transparent 50%),
+    radial-gradient(at 90% 100%, rgba(72, 100, 76, 0.05) 0px, transparent 45%);
+  background-attachment: fixed;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+button { font-family: inherit; font-size: inherit; border: none; background: none; cursor: pointer; color: inherit; touch-action: manipulation; }
+.app { max-width: 28rem; margin: 0 auto; padding: 1.5rem 1.25rem 6rem; }
+.f-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+.f-gur { font-family: 'Noto Sans Gurmukhi', 'Manrope', sans-serif; }
+
+/* === Home === */
+.home-header { padding-top: 0.5rem; margin-bottom: 2rem; }
+.home-title-gur {
+  font-family: 'Noto Sans Gurmukhi', sans-serif;
+  font-size: 3rem;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.home-title { font-family: 'Fraunces', serif; font-size: 1.875rem; font-weight: 500; margin-top: 0.5rem; letter-spacing: -0.01em; }
+.home-sub { color: var(--muted); margin-top: 0.5rem; font-size: 0.95rem; line-height: 1.55; }
+.section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.section-card {
+  position: relative; background: var(--card); border: 1px solid var(--border);
+  border-radius: 1rem; padding: 1.25rem 1.25rem 1rem; text-align: left;
+  transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+  display: block; width: 100%; min-height: 7rem;
+}
+.section-card:hover { border-color: var(--border-2); }
+.section-card:active { transform: scale(0.97); }
+.section-card .ornament { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 1.5rem; color: var(--accent); opacity: 0.85; margin-bottom: 0.75rem; line-height: 1; }
+.section-card .name { font-family: 'Fraunces', serif; font-size: 1.0625rem; font-weight: 500; line-height: 1.2; }
+.section-card .desc { color: var(--muted); font-size: 0.75rem; margin-top: 0.25rem; }
+.section-card .arrow { position: absolute; top: 1rem; right: 1rem; color: var(--muted-2); font-size: 0.95rem; }
+.home-footer { text-align: center; color: var(--muted-2); font-size: 0.75rem; margin-top: 2.5rem; }
+
+/* === Top Bar === */
+.topbar { display: flex; align-items: center; margin: 0 -0.25rem 1.5rem; }
+.btn-back { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 0.75rem; margin-left: -0.5rem; border-radius: 9999px; color: var(--ink-soft); font-size: 0.875rem; font-weight: 500; transition: background 0.15s; }
+.btn-back:hover { background: rgba(0,0,0,0.04); }
+.btn-back:active { background: rgba(0,0,0,0.08); }
+.btn-back .arr { font-size: 1.125rem; line-height: 1; }
+.topbar-title { margin-left: auto; font-family: 'Fraunces', serif; font-size: 1.125rem; font-weight: 500; }
+
+/* === Mode toggle === */
+.mode-wrap { display: flex; justify-content: center; margin-bottom: 1.25rem; }
+.mode-toggle { display: inline-flex; background: rgba(0,0,0,0.06); border-radius: 9999px; padding: 0.25rem; font-size: 0.875rem; }
+.mode-btn { padding: 0.375rem 1rem; border-radius: 9999px; font-weight: 500; color: var(--muted); transition: background 0.15s, color 0.15s; }
+.mode-btn.active { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+/* === Flashcards === */
+.dots { display: flex; gap: 0.375rem; justify-content: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.dot { height: 0.375rem; width: 0.375rem; border-radius: 9999px; background: var(--border-2); transition: width 0.3s, background 0.3s; }
+.dot.active { width: 1.75rem; background: var(--accent); }
+
+.flip-wrap { perspective: 1500px; margin-bottom: 1.5rem; }
+.flip-card { position: relative; width: 100%; height: 20rem; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.45, 0, 0.2, 1); cursor: pointer; }
+.flip-card.flipped { transform: rotateY(180deg); }
+.flip-face { position: absolute; inset: 0; border-radius: 1.5rem; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+.flip-front { background: var(--card); border: 1px solid var(--border); box-shadow: 0 4px 24px -12px rgba(0,0,0,0.12); }
+.flip-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); box-shadow: 0 4px 24px -12px rgba(0,0,0,0.25); }
+.flip-label { font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--muted-2); margin-bottom: 1.25rem; }
+.flip-back .flip-label { color: #9C8E7A; }
+.flip-en { font-family: 'Fraunces', serif; font-weight: 500; text-align: center; line-height: 1.3; padding: 0 0.5rem; font-size: 1.875rem; }
+.flip-en.numbers { font-size: 4.5rem; }
+.flip-gur { font-family: 'Noto Sans Gurmukhi', sans-serif; margin-bottom: 1rem; text-align: center; line-height: 1.15; font-size: 3rem; }
+.flip-gur.long { font-size: 2rem; }
+.flip-gur.numbers { font-size: 5rem; }
+.flip-lat { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.125rem; color: var(--accent-soft); text-align: center; }
+.flip-hint { position: absolute; bottom: 1.25rem; left: 0; right: 0; text-align: center; font-size: 0.6875rem; color: var(--muted-2); letter-spacing: 0.02em; }
+.flip-back .flip-hint { color: #7A6E5C; }
+
+.flip-controls { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; }
+.btn { flex: 1; padding: 0.875rem 1rem; border-radius: 1rem; font-weight: 500; font-size: 0.95rem; transition: transform 0.1s, opacity 0.2s, background 0.15s; }
+.btn:active { transform: scale(0.98); }
+.btn-secondary { background: var(--card); border: 1px solid var(--border-2); color: var(--ink-soft); }
+.btn-secondary:hover { background: #F5F1E8; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { opacity: 0.9; }
+.btn-block { width: 100%; padding: 1rem; border-radius: 1rem; }
+.flip-counter { text-align: center; color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem; }
+
+/* === List === */
+.list { list-style: none; }
+.list-item { background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.25rem; margin-bottom: 0.75rem; }
+.list-item .label { color: var(--muted); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+.list-item .gur { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 1.5rem; line-height: 1.35; margin-bottom: 0.375rem; }
+.list-item .lat { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.9375rem; color: var(--accent); }
+.list-num { display: flex; align-items: center; gap: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 0.875rem 1rem; margin-bottom: 0.5rem; }
+.list-num .num-en { font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--muted-2); width: 2rem; text-align: center; }
+.list-num .num-gur { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 1.875rem; flex: 1; text-align: center; color: var(--ink); }
+.list-num .num-lat { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); width: 5rem; text-align: right; }
+
+/* === Quiz === */
+.quiz-meta { display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.75rem; }
+.quiz-meta .count { color: var(--muted); }
+.quiz-meta .score { color: var(--accent); font-weight: 500; }
+.progress { height: 0.375rem; background: var(--border); border-radius: 9999px; overflow: hidden; margin-bottom: 1.75rem; }
+.progress-bar { height: 100%; background: var(--accent); transition: width 0.5s ease; }
+.q-card { background: var(--card); border: 1px solid var(--border); border-radius: 1.5rem; padding: 1.75rem; text-align: center; margin-bottom: 1.25rem; box-shadow: 0 2px 20px -12px rgba(0,0,0,0.08); }
+.q-prompt { font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--muted-2); margin-bottom: 1rem; }
+.q-gur { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 2.5rem; line-height: 1.15; margin-bottom: 0.625rem; }
+.q-gur.long { font-size: 1.85rem; }
+.q-lat { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.9375rem; color: var(--accent); }
+.q-en { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 500; line-height: 1.3; padding: 0.5rem 0; }
+
+.options { display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.25rem; }
+.option { width: 100%; padding: 1rem 1.25rem; border-radius: 1rem; border: 2px solid var(--border-2); background: var(--card); text-align: left; font-weight: 500; font-size: 0.95rem; transition: border-color 0.15s, background 0.15s, transform 0.1s, color 0.15s; display: flex; align-items: center; gap: 0.75rem; color: var(--ink); }
+.option:active:not(:disabled) { transform: scale(0.99); }
+.option:hover:not(:disabled) { border-color: var(--ink-soft); }
+.option:disabled { cursor: default; }
+.option .opt-text { flex: 1; }
+.option .opt-gur { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 1.25rem; display: block; line-height: 1.25; }
+.option .opt-lat { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.75rem; color: var(--muted); display: block; margin-top: 0.125rem; }
+.option.correct { border-color: var(--good); background: var(--good-bg); color: var(--good); }
+.option.correct .opt-lat { color: var(--good); opacity: 0.8; }
+.option.wrong { border-color: var(--bad-border); background: var(--bad-bg); color: var(--bad); }
+.option.wrong .opt-lat { color: var(--bad); opacity: 0.8; }
+.option.dim { border-color: var(--border); background: rgba(255,255,255,0.6); color: var(--muted-2); }
+.option.dim .opt-lat { color: var(--muted-2); }
+.option .badge { font-size: 1.125rem; line-height: 1; }
+
+.feedback { background: rgba(0,0,0,0.04); border-radius: 1rem; padding: 1rem; margin-bottom: 0.75rem; }
+.feedback .label { color: var(--muted); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.375rem; }
+.feedback .gur { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 1.125rem; line-height: 1.3; }
+.feedback .lat { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.875rem; color: var(--accent); margin-top: 0.125rem; }
+.feedback .en { color: var(--ink-soft); font-size: 0.875rem; margin-top: 0.25rem; }
+
+.quiz-done { text-align: center; padding: 2.5rem 0; }
+.quiz-done .label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 0.75rem; }
+.quiz-done .score-big { font-family: 'Fraunces', serif; font-weight: 500; font-size: 5rem; line-height: 1; margin-bottom: 0.5rem; }
+.quiz-done .score-big .denom { color: var(--border-2); font-size: 2.5rem; }
+.quiz-done .msg { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+/* === Practice === */
+.practice-intro { color: var(--muted); font-size: 0.875rem; margin-bottom: 1.25rem; text-align: center; line-height: 1.55; }
+.practice-list { list-style: none; margin-bottom: 1.5rem; }
+.practice-item { background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.25rem; margin-bottom: 0.75rem; display: flex; gap: 0.75rem; align-items: flex-start; }
+.practice-item .num { font-family: 'Fraunces', serif; font-weight: 500; font-size: 0.875rem; color: var(--accent); width: 1.25rem; flex-shrink: 0; padding-top: 0.125rem; }
+.practice-item .body { flex: 1; min-width: 0; }
+.practice-item .label { color: var(--muted); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.375rem; }
+.practice-item .gur { font-family: 'Noto Sans Gurmukhi', sans-serif; font-size: 1.5rem; line-height: 1.3; margin-bottom: 0.25rem; }
+.practice-item .lat { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.9375rem; color: var(--accent); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.rise { animation: rise 0.45s cubic-bezier(0.4, 0, 0.2, 1) both; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+// ========== Data ==========
+const greetings = [
+  { en: "Hello", gur: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", lat: "Sat Sri Akal" },
+  { en: "How are you?", gur: "ਤੁਸੀਂ ਕਿਵੇਂ ਹੋ?", lat: "Tusi kiven ho?" },
+  { en: "What is your name?", gur: "ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?", lat: "Tuhada naam ki hai?" },
+  { en: "My name is\u2026", gur: "ਮੇਰਾ ਨਾਮ ... ਹੈ", lat: "Mera naam ... hai" },
+  { en: "Goodbye", gur: "ਫਿਰ ਮਿਲਾਂਗੇ", lat: "Phir milange" },
+];
+const polite = [
+  { en: "Yes", gur: "ਹਾਂ", lat: "Haan" },
+  { en: "No", gur: "ਨਹੀਂ", lat: "Nahi" },
+  { en: "Please", gur: "ਕਿਰਪਾ ਕਰਕੇ", lat: "Kirpa karke" },
+  { en: "Thank you", gur: "ਧੰਨਵਾਦ", lat: "Dhannvaad" },
+  { en: "Sorry", gur: "ਮਾਫ ਕਰਨਾ", lat: "Maaf karna" },
+];
+const phrases = [
+  { en: "I don\u2019t understand", gur: "ਮੈਨੂੰ ਸਮਝ ਨਹੀਂ ਆਈ", lat: "Mainu samajh nahin aayi" },
+  { en: "Please say it again", gur: "ਫਿਰ ਦੱਸੋ ਜੀ", lat: "Phir dasso ji" },
+  { en: "Do you speak English?", gur: "ਕੀ ਤੁਸੀਂ ਅੰਗਰੇਜ਼ੀ ਬੋਲਦੇ ਹੋ?", lat: "Ki tusi angrezi bolde ho?" },
+  { en: "I am hungry", gur: "ਮੈਨੂੰ ਭੁੱਖ ਲੱਗੀ ਹੈ", lat: "Mainu bhukh laggi hai" },
+  { en: "I want water", gur: "ਮੈਨੂੰ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ", lat: "Mainu paani chahida hai" },
+  { en: "How much is this?", gur: "ਇਹ ਕਿੰਨੇ ਦਾ ਹੈ?", lat: "Eh kinne da hai?" },
+  { en: "Help me", gur: "ਮੇਰੀ ਮਦਦ ਕਰੋ", lat: "Meri madad karo" },
+  { en: "Where is the bathroom?", gur: "ਬਾਥਰੂਮ ਕਿੱਥੇ ਹੈ?", lat: "Bathroom kithe hai?" },
+];
+const numbers = [
+  { en: "0", gur: "੦", lat: "sifar" },
+  { en: "1", gur: "੧", lat: "ikk" },
+  { en: "2", gur: "੨", lat: "do" },
+  { en: "3", gur: "੩", lat: "tinn" },
+  { en: "4", gur: "੪", lat: "chaar" },
+  { en: "5", gur: "੫", lat: "punj" },
+  { en: "6", gur: "੬", lat: "che" },
+  { en: "7", gur: "੭", lat: "satt" },
+  { en: "8", gur: "੮", lat: "ath" },
+  { en: "9", gur: "੯", lat: "nau" },
+  { en: "10", gur: "੧੦", lat: "dass" },
+];
+
+const allItems = [...greetings, ...polite, ...phrases, ...numbers];
+const practicePool = [...greetings, ...phrases, ...numbers];
+
+const SECTIONS = [
+  { id: 'greetings', label: 'Greetings',     sub: '5 essentials',  ornament: 'ਸਤ',   items: greetings },
+  { id: 'polite',    label: 'Polite Words',  sub: '5 basics',      ornament: 'ਜੀ',   items: polite },
+  { id: 'phrases',   label: 'Daily Phrases', sub: '8 useful',      ornament: 'ਪਾਣੀ', items: phrases },
+  { id: 'numbers',   label: 'Numbers',       sub: '0 to 10',       ornament: '੧੨੩',  items: numbers, isNumbers: true },
+  { id: 'quiz',      label: 'Quiz',          sub: 'Test yourself', ornament: '?',    items: null },
+  { id: 'practice',  label: 'Daily Practice',sub: '5 random',      ornament: '✦',    items: null },
+];
+
+// ========== State ==========
+const state = {
+  view: 'home',
+  cardIndex: 0,
+  flipped: false,
+  mode: 'cards',
+  questions: null,
+  qi: 0,
+  picked: null,
+  score: 0,
+  done: false,
+  practicePicks: null,
+};
+
+// ========== Helpers ==========
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => root.querySelectorAll(sel);
+
+function setView(view) {
+  state.view = view;
+  state.cardIndex = 0;
+  state.flipped = false;
+  state.mode = 'cards';
+  if (view === 'quiz') {
+    state.questions = buildQuestions();
+    state.qi = 0;
+    state.picked = null;
+    state.score = 0;
+    state.done = false;
+  }
+  if (view === 'practice') {
+    state.practicePicks = shuffle(practicePool).slice(0, 5);
+  }
+  render();
+  window.scrollTo(0, 0);
+}
+
+function buildQuestions() {
+  const picks = shuffle(allItems).slice(0, 10);
+  return picks.map((correct, i) => {
+    const direction = i % 2 === 0 ? 'paToEn' : 'enToPa';
+    const wrongs = shuffle(allItems.filter(x => x.en !== correct.en)).slice(0, 3);
+    const options = shuffle([correct, ...wrongs]);
+    return { correct, options, direction };
+  });
+}
+
+// ========== Render ==========
+function render() {
+  const app = document.getElementById('app');
+  let html = '<div class="app">';
+  if (state.view === 'home') {
+    html += renderHome();
+  } else {
+    html += renderTopBar();
+    if (state.view === 'quiz') html += renderQuiz();
+    else if (state.view === 'practice') html += renderPractice();
+    else html += renderSection();
+  }
+  html += '</div>';
+  app.innerHTML = html;
+  attachEvents();
+}
+
+function renderHome() {
+  let cards = '';
+  SECTIONS.forEach((s, i) => {
+    cards += `
+      <button class="section-card rise" data-go="${s.id}" style="animation-delay:${i*50}ms">
+        <div class="ornament" lang="pa">${escapeHtml(s.ornament)}</div>
+        <div class="name">${escapeHtml(s.label)}</div>
+        <div class="desc">${escapeHtml(s.sub)}</div>
+        <div class="arrow">→</div>
+      </button>`;
+  });
+  return `
+    <div class="rise">
+      <header class="home-header">
+        <div class="home-title-gur" lang="pa">ਪੰਜਾਬੀ</div>
+        <h1 class="home-title">Learn Punjabi</h1>
+        <p class="home-sub">A simple companion for everyday phrases. Tap a section to begin.</p>
+      </header>
+      <div class="section-grid">${cards}</div>
+      <p class="home-footer">Practice a little, every day · ਸਤ ਸ੍ਰੀ ਅਕਾਲ</p>
+    </div>
+  `;
+}
+
+function renderTopBar() {
+  const s = SECTIONS.find(x => x.id === state.view);
+  return `
+    <div class="topbar rise">
+      <button class="btn-back" data-back>
+        <span class="arr">←</span> Home
+      </button>
+      <div class="topbar-title">${escapeHtml(s ? s.label : '')}</div>
+    </div>
+  `;
+}
+
+function renderSection() {
+  const s = SECTIONS.find(x => x.id === state.view);
+  if (!s || !s.items) return '';
+  const isNumbers = !!s.isNumbers;
+  return `
+    <div class="rise">
+      <div class="mode-wrap">
+        <div class="mode-toggle">
+          <button class="mode-btn ${state.mode==='cards'?'active':''}" data-mode="cards">Flashcards</button>
+          <button class="mode-btn ${state.mode==='list'?'active':''}" data-mode="list">List</button>
+        </div>
+      </div>
+      ${state.mode === 'cards' ? renderFlashcards(s.items, isNumbers) : renderList(s.items, isNumbers)}
+    </div>
+  `;
+}
+
+function renderFlashcards(items, isNumbers) {
+  const idx = state.cardIndex;
+  const item = items[idx];
+  const flipped = state.flipped;
+  let dots = '';
+  items.forEach((_, i) => { dots += `<span class="dot ${i === idx ? 'active' : ''}"></span>`; });
+  const gurClass = 'flip-gur' + (isNumbers ? ' numbers' : (item.gur.length > 18 ? ' long' : ''));
+  const enClass  = 'flip-en' + (isNumbers ? ' numbers' : '');
+  return `
+    <div class="dots">${dots}</div>
+    <div class="flip-wrap">
+      <div class="flip-card ${flipped ? 'flipped' : ''}" data-flip role="button" aria-label="Flip card">
+        <div class="flip-face flip-front">
+          <div class="flip-label">English</div>
+          <div class="${enClass}">${escapeHtml(item.en)}</div>
+          <div class="flip-hint">tap to reveal ↻</div>
+        </div>
+        <div class="flip-face flip-back">
+          <div class="flip-label">Punjabi</div>
+          <div class="${gurClass}" lang="pa">${escapeHtml(item.gur)}</div>
+          <div class="flip-lat">${escapeHtml(item.lat)}</div>
+          <div class="flip-hint">tap to flip back ↺</div>
+        </div>
+      </div>
+    </div>
+    <div class="flip-controls">
+      <button class="btn btn-secondary" data-prev>← Previous</button>
+      <button class="btn btn-primary" data-next>Next →</button>
+    </div>
+    <div class="flip-counter">Card ${idx + 1} of ${items.length}</div>
+  `;
+}
+
+function renderList(items, isNumbers) {
+  if (isNumbers) {
+    let rows = '';
+    items.forEach(it => {
+      rows += `
+        <li class="list-num">
+          <span class="num-en">${escapeHtml(it.en)}</span>
+          <span class="num-gur" lang="pa">${escapeHtml(it.gur)}</span>
+          <span class="num-lat">${escapeHtml(it.lat)}</span>
+        </li>`;
+    });
+    return `<ul class="list">${rows}</ul>`;
+  }
+  let rows = '';
+  items.forEach(it => {
+    rows += `
+      <li class="list-item">
+        <div class="label">${escapeHtml(it.en)}</div>
+        <div class="gur" lang="pa">${escapeHtml(it.gur)}</div>
+        <div class="lat">${escapeHtml(it.lat)}</div>
+      </li>`;
+  });
+  return `<ul class="list">${rows}</ul>`;
+}
+
+function renderQuiz() {
+  if (state.done) return renderQuizDone();
+  const q = state.questions[state.qi];
+  const total = state.questions.length;
+  const progress = ((state.qi + (state.picked ? 1 : 0)) / total) * 100;
+
+  let promptHtml = '';
+  if (q.direction === 'paToEn') {
+    const gurClass = 'q-gur' + (q.correct.gur.length > 18 ? ' long' : '');
+    promptHtml = `
+      <div class="q-prompt">What does this mean?</div>
+      <div class="${gurClass}" lang="pa">${escapeHtml(q.correct.gur)}</div>
+      <div class="q-lat">${escapeHtml(q.correct.lat)}</div>
+    `;
+  } else {
+    promptHtml = `
+      <div class="q-prompt">How do you say this?</div>
+      <div class="q-en">${escapeHtml(q.correct.en)}</div>
+    `;
+  }
+
+  let optsHtml = '';
+  q.options.forEach((opt, i) => {
+    const isCorrect = opt.en === q.correct.en;
+    const isPicked = state.picked && state.picked.en === opt.en;
+    let cls = 'option';
+    let badge = '';
+    if (state.picked) {
+      if (isCorrect) { cls += ' correct'; badge = '✓'; }
+      else if (isPicked) { cls += ' wrong'; badge = '✗'; }
+      else { cls += ' dim'; }
+    }
+    let inner = '';
+    if (q.direction === 'paToEn') {
+      inner = `<span class="opt-text">${escapeHtml(opt.en)}</span>`;
+    } else {
+      inner = `<span class="opt-text">
+        <span class="opt-gur" lang="pa">${escapeHtml(opt.gur)}</span>
+        <span class="opt-lat">${escapeHtml(opt.lat)}</span>
+      </span>`;
+    }
+    if (badge) inner += `<span class="badge">${badge}</span>`;
+    const disabled = state.picked ? 'disabled' : '';
+    optsHtml += `<button class="${cls}" data-pick="${i}" ${disabled}>${inner}</button>`;
+  });
+
+  let feedback = '';
+  if (state.picked && state.picked.en !== q.correct.en) {
+    feedback = `
+      <div class="feedback rise">
+        <div class="label">Correct answer</div>
+        <div class="gur" lang="pa">${escapeHtml(q.correct.gur)}</div>
+        <div class="lat">${escapeHtml(q.correct.lat)}</div>
+        <div class="en">${escapeHtml(q.correct.en)}</div>
+      </div>`;
+  }
+  let nextBtn = '';
+  if (state.picked) {
+    const label = (state.qi + 1 >= total) ? 'See Result' : 'Next Question →';
+    nextBtn = `<button class="btn btn-primary btn-block rise" data-next-q>${label}</button>`;
+  }
+
+  return `
+    <div class="rise">
+      <div class="quiz-meta">
+        <span class="count">Question ${state.qi + 1} of ${total}</span>
+        <span class="score">Score: ${state.score}</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:${progress}%"></div></div>
+      <div class="q-card">${promptHtml}</div>
+      <div class="options">${optsHtml}</div>
+      ${feedback}
+      ${nextBtn}
+    </div>
+  `;
+}
+
+function renderQuizDone() {
+  const total = state.questions.length;
+  const pct = Math.round((state.score / total) * 100);
+  let msg = "Keep practicing — you'll get there.";
+  if (pct === 100) msg = "Perfect! Shaabaash. ✦";
+  else if (pct >= 80) msg = "Excellent work.";
+  else if (pct >= 60) msg = "Good progress — keep going.";
+  else if (pct >= 40) msg = "You're learning. Try again!";
+  return `
+    <div class="quiz-done rise">
+      <div class="label">Quiz Complete</div>
+      <div class="score-big">${state.score}<span class="denom"> / ${total}</span></div>
+      <div class="msg">${escapeHtml(msg)}</div>
+      <button class="btn btn-primary btn-block" data-quiz-restart>Play Again</button>
+    </div>
+  `;
+}
+
+function renderPractice() {
+  let items = '';
+  state.practicePicks.forEach((it, i) => {
+    items += `
+      <li class="practice-item rise" style="animation-delay:${i*60}ms">
+        <span class="num">${i + 1}</span>
+        <div class="body">
+          <div class="label">${escapeHtml(it.en)}</div>
+          <div class="gur" lang="pa">${escapeHtml(it.gur)}</div>
+          <div class="lat">${escapeHtml(it.lat)}</div>
+        </div>
+      </li>`;
+  });
+  return `
+    <div class="rise">
+      <p class="practice-intro">5 random phrases mixed from greetings, daily phrases, and numbers. Read each one aloud.</p>
+      <ol class="practice-list">${items}</ol>
+      <button class="btn btn-primary btn-block" data-practice-refresh>↻ Practice Again</button>
+    </div>
+  `;
+}
+
+// ========== Events ==========
+function attachEvents() {
+  $$('[data-go]').forEach(el => el.addEventListener('click', () => setView(el.getAttribute('data-go'))));
+  const backBtn = $('[data-back]');
+  if (backBtn) backBtn.addEventListener('click', () => setView('home'));
+
+  $$('[data-mode]').forEach(el => {
+    el.addEventListener('click', () => {
+      state.mode = el.getAttribute('data-mode');
+      state.flipped = false;
+      render();
+    });
+  });
+
+  // Flashcard flip — toggle class directly so the CSS transition plays
+  const flipEl = $('[data-flip]');
+  if (flipEl) {
+    flipEl.addEventListener('click', () => {
+      state.flipped = !state.flipped;
+      flipEl.classList.toggle('flipped');
+    });
+  }
+
+  const prevBtn = $('[data-prev]');
+  const nextBtn = $('[data-next]');
+  if (prevBtn) prevBtn.addEventListener('click', () => navigateCard(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => navigateCard(1));
+
+  $$('[data-pick]').forEach(el => {
+    el.addEventListener('click', () => {
+      if (state.picked) return;
+      const idx = parseInt(el.getAttribute('data-pick'), 10);
+      const opt = state.questions[state.qi].options[idx];
+      state.picked = opt;
+      if (opt.en === state.questions[state.qi].correct.en) state.score++;
+      render();
+    });
+  });
+
+  const nextQ = $('[data-next-q]');
+  if (nextQ) nextQ.addEventListener('click', () => {
+    if (state.qi + 1 >= state.questions.length) {
+      state.done = true;
+    } else {
+      state.qi++;
+      state.picked = null;
+    }
+    render();
+  });
+
+  const restartQ = $('[data-quiz-restart]');
+  if (restartQ) restartQ.addEventListener('click', () => {
+    state.questions = buildQuestions();
+    state.qi = 0;
+    state.picked = null;
+    state.score = 0;
+    state.done = false;
+    render();
+  });
+
+  const refreshP = $('[data-practice-refresh]');
+  if (refreshP) refreshP.addEventListener('click', () => {
+    state.practicePicks = shuffle(practicePool).slice(0, 5);
+    render();
+  });
+}
+
+function navigateCard(delta) {
+  const s = SECTIONS.find(x => x.id === state.view);
+  if (!s || !s.items) return;
+  state.cardIndex = (state.cardIndex + delta + s.items.length) % s.items.length;
+  state.flipped = false;
+  render();
+}
+
+// ========== Init ==========
+render();
+</script>
+</body>
+</html>
